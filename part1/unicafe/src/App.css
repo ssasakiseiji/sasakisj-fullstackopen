@@ -1,0 +1,26 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: left;
+}
+
+.title {
+  font-size: 3rem;
+  line-height: 1.2;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.button {
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.stats {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
