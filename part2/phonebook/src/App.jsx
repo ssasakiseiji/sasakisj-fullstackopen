@@ -2,12 +2,16 @@ import { useState,useEffect } from 'react'
 import NameList from './components/NameList'
 import PersonForm from './components/PersonForm'
 import Search from './components/Search'
-import personsService from './services/personsService' 
+import Notification from './components/Confirm'
+import personsService from './services/personsService'
+
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState("")
+  const [notificationMessage, setNotificationMessage] = useState(null)
+  const [notificationType, setNotificationType] = useState("")
 
   //typing events handlers
   const handleSearchChange= (event) => {
@@ -57,8 +61,9 @@ const App = () => {
           setPersons(persons.concat(addPersonResponse));
           setNewName("");
           setNewNumber("");
-        }
-      )
+          setNotificationMessage(`Added ${newName}`);
+          setNotificationType("confirm");
+        })
     }
 
   //initial fetch
@@ -78,6 +83,11 @@ const App = () => {
            )
          }
         )
+        .catch(error => {
+          setNotificationMessage(`Information of ${name} has already been removed from the server`)
+          setNotificationType("error")
+          setPersons(persons.filter(person => person.id !== id))
+        })
       }
   }
   
@@ -90,6 +100,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message = {notificationMessage} type = {notificationType} />
       <Search 
       search = {search} handleSearchChange = {handleSearchChange}
       />
