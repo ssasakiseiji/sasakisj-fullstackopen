@@ -9,7 +9,6 @@ function App() {
   const [countries, setCountries] = useState([])
 
 
-
   const handleSearchChange = (event) => {
     setSearch(event.target.value)
   }
@@ -21,13 +20,17 @@ function App() {
     )
   }
   
+  const showCountry = (selectedCountry)=> {
+    setSearch(selectedCountry)
+  }
+
   const countriesToShow = countries.filter(country => country.name.common.toLowerCase().includes(search.toLowerCase()))
 
   useEffect(initialFetch, [])
   return (
     <>
       <Search search={search} handleSearchChange = {handleSearchChange}/>
-      <SearchResult countryCount = {countriesToShow.length} searchCount = {search.length} countryList = {countriesToShow} />
+      <SearchResult countryCount = {countriesToShow.length} searchCount = {search.length} countryList = {countriesToShow} showCountry={showCountry}/>
     </>
   )
 }
